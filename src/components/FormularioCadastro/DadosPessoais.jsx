@@ -13,12 +13,7 @@ function DadosPessoais({ submit, validateCpf }) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        if (error.cpf.valid) {
-          submit({ name, surname, cpf, promotion, news });
-          setName("");
-          setSurname("");
-          setCpf("");
-        }
+        submit({ name, surname, cpf, promotion, news });
       }}
     >
       <TextField

@@ -1,13 +1,19 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 
-function DadosUsuario() {
+function DadosUsuario({ submit }) {
   return (
-    <form>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        submit();
+      }}
+    >
       <TextField
         id="email"
         label="Email"
         type="email"
+        required
         variant="outlined"
         margin="normal"
         fullWidth
@@ -16,6 +22,7 @@ function DadosUsuario() {
         id="password"
         label="Senha"
         type="password"
+        required
         variant="outlined"
         margin="normal"
         fullWidth
