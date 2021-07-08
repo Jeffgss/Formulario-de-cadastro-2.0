@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Button, TextField, Switch, FormControlLabel } from "@material-ui/core";
 
-function DadosPessoais({ submit, validateCpf }) {
+function DadosPessoais({ submit, validations }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cpf, setCpf] = useState("");
   const [promotion, setPromotion] = useState(true);
   const [news, setNews] = useState(true);
   const [error, setError] = useState({ cpf: { valid: true, text: "" } });
+
+  function validateFields(event) {
+    const { name, value } = event.target;
+    const newState = { ...error };
+    newState[name] = validations[name](value);
+    setError(newState);
+  }
 
   return (
     <form
@@ -37,15 +44,11 @@ function DadosPessoais({ submit, validateCpf }) {
       <TextField
         value={cpf}
         onChange={(event) => setCpf(event.target.value)}
-        onBlur={(event) => {
-          const validCpf = validateCpf(cpf);
-          setError({
-            cpf: validCpf,
-          });
-        }}
+        onBlur={validateFields}
         error={!error.cpf.valid}
         helperText={error.cpf.text}
         id="cpf"
+        name="cpf"
         label="CPF"
         variant="outlined"
         margin="normal"
