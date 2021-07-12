@@ -1,7 +1,7 @@
 import "./App.css";
 import FormularioCadastro from "./components/FormularioCadastro/FormularioCadastro";
 import { Container, Typography } from "@material-ui/core";
-import { validateCpf, validatePassword } from "./models/register";
+import { validateCpf, validatePassword, validateName } from "./models/register";
 
 function App() {
   return (
@@ -11,7 +11,11 @@ function App() {
       </Typography>
       <FormularioCadastro
         submit={onSubmitForm}
-        validations={{ cpf: validateCpf, password: validatePassword }}
+        validations={{
+          cpf: validateCpf,
+          password: validatePassword,
+          name: validateName,
+        }}
       />
     </Container>
   );
