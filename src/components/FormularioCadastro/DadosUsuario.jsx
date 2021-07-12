@@ -1,14 +1,34 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 
-function DadosUsuario({ submit }) {
+function DadosUsuario({ submit, validations }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState({ password: { valid: true, text: "" } });
+
+  function validateFields(event) {
+    const { name, value } = event.target;
+    const newState = { ...error };
+    newState[name] = validations[name](value);
+    setError(newState);
+  }
+
+  function canSend() {
+    for (let field in error) {
+      if (!error[field].valid) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        submit({ email, password });
+        if (canSend()) {
+          submit({ email, password });
+        }
       }}
     >
       <TextField
@@ -17,6 +37,7 @@ function DadosUsuario({ submit }) {
           setEmail(event.target.value);
         }}
         id="email"
+        name="email"
         label="Email"
         type="email"
         required
@@ -29,7 +50,11 @@ function DadosUsuario({ submit }) {
         onChange={(event) => {
           setPassword(event.target.value);
         }}
+        onBlur={validateFields}
+        error={!error.password.valid}
+        helperText={error.password.text}
         id="password"
+        name="password"
         label="Senha"
         type="password"
         required
@@ -38,7 +63,7 @@ function DadosUsuario({ submit }) {
         fullWidth
       />
       <Button type="submit" variant="contained" color="primary">
-        Cadastrar
+        Próximo
       </Button>
     </form>
   );

@@ -7,7 +7,10 @@ function DadosPessoais({ submit, validations }) {
   const [cpf, setCpf] = useState("");
   const [promotion, setPromotion] = useState(true);
   const [news, setNews] = useState(true);
-  const [error, setError] = useState({ cpf: { valid: true, text: "" } });
+  const [error, setError] = useState({
+    cpf: { valid: true, text: "" },
+    name: { valid: true, text: "" },
+  });
 
   function validateFields(event) {
     const { name, value } = event.target;
@@ -16,17 +19,32 @@ function DadosPessoais({ submit, validations }) {
     setError(newState);
   }
 
+  function canSend() {
+    for (let field in error) {
+      if (!error[field].valid) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        submit({ name, surname, cpf, promotion, news });
+        if (canSend()) {
+          submit({ name, surname, cpf, promotion, news });
+        }
       }}
     >
       <TextField
         value={name}
         onChange={(event) => setName(event.target.value)}
+        onBlur={validateFields}
+        error={!error.name.valid}
+        helperText={error.name.text}
         id="name"
+        name="name"
         label="Nome"
         variant="outlined"
         margin="normal"
@@ -36,6 +54,7 @@ function DadosPessoais({ submit, validations }) {
         value={surname}
         onChange={(event) => setSurname(event.target.value)}
         id="surname"
+        name="surname"
         label="Sobrenome"
         variant="outlined"
         margin="normal"
@@ -77,7 +96,7 @@ function DadosPessoais({ submit, validations }) {
         }
       />
       <Button type="submit" variant="contained" color="primary">
-        Cadastrar
+        Próximo
       </Button>
     </form>
   );

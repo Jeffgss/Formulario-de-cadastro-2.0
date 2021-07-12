@@ -27,4 +27,12 @@ const validatePassword = (password) => {
   }
 };
 
-export { validateCpf, validatePassword };
+const validateName = (name) => {
+  if (name.length <= 2 || name.length > 12) {
+    return { valid: false, text: "Nome inválido." };
+  } else {
+    return { valid: true, text: "" };
+  }
+};
+
+export { validateCpf, validatePassword, validateName };
