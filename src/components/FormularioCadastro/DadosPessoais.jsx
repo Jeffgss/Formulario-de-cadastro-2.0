@@ -31,6 +31,7 @@ function DadosPessoais({ submit }) {
         id="name"
         name="name"
         label="Nome"
+        required
         variant="outlined"
         margin="normal"
         fullWidth
@@ -41,6 +42,7 @@ function DadosPessoais({ submit }) {
         id="surname"
         name="surname"
         label="Sobrenome"
+        required
         variant="outlined"
         margin="normal"
         fullWidth
@@ -54,6 +56,7 @@ function DadosPessoais({ submit }) {
         id="cpf"
         name="cpf"
         label="CPF"
+        required
         variant="outlined"
         margin="normal"
         fullWidth
