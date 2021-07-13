@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Button, TextField, Switch, FormControlLabel } from "@material-ui/core";
 import RegisterValidation from "../../context/RegistrationValidation";
+import useError from "../../hooks/useError";
 
 function DadosPessoais({ submit }) {
   const [name, setName] = useState("");
@@ -8,28 +9,9 @@ function DadosPessoais({ submit }) {
   const [cpf, setCpf] = useState("");
   const [promotion, setPromotion] = useState(true);
   const [news, setNews] = useState(true);
-  const [error, setError] = useState({
-    cpf: { valid: true, text: "" },
-    name: { valid: true, text: "" },
-  });
-
   const validations = useContext(RegisterValidation);
 
-  function validateFields(event) {
-    const { name, value } = event.target;
-    const newState = { ...error };
-    newState[name] = validations[name](value);
-    setError(newState);
-  }
-
-  function canSend() {
-    for (let field in error) {
-      if (!error[field].valid) {
-        return false;
-      }
-    }
-    return true;
-  }
+  const [error, validateFields, canSend] = useError(validations);
 
   return (
     <form
