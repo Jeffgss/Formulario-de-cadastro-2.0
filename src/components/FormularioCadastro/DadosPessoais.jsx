@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, TextField, Switch, FormControlLabel } from "@material-ui/core";
+import RegisterValidation from "../../context/RegistrationValidation";
 
-function DadosPessoais({ submit, validations }) {
+function DadosPessoais({ submit }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cpf, setCpf] = useState("");
@@ -11,6 +12,8 @@ function DadosPessoais({ submit, validations }) {
     cpf: { valid: true, text: "" },
     name: { valid: true, text: "" },
   });
+
+  const validations = useContext(RegisterValidation);
 
   function validateFields(event) {
     const { name, value } = event.target;
