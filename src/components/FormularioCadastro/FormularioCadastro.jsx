@@ -4,7 +4,7 @@ import DadosPessoais from "./DadosPessoais";
 import DadosEntrega from "./DadosEntrega";
 import { Typography, Stepper, Step, StepLabel } from "@material-ui/core";
 
-function FormularioCadastro({ submit, validations }) {
+function FormularioCadastro({ submit }) {
   const [currentStage, setCurrentStage] = useState(0);
   const [collectedData, setCollectedData] = useState({});
   useEffect(() => {
@@ -12,9 +12,9 @@ function FormularioCadastro({ submit, validations }) {
   });
 
   const form = [
-    <DadosUsuario submit={collectData} validations={validations} />,
-    <DadosPessoais submit={collectData} validations={validations} />,
-    <DadosEntrega submit={collectData} validations={validations} />,
+    <DadosUsuario submit={collectData} />,
+    <DadosPessoais submit={collectData} />,
+    <DadosEntrega submit={collectData} />,
     <Typography variant="h5" align="center">
       Cadastro Finalizado
     </Typography>,

@@ -2,6 +2,7 @@ import "./App.css";
 import FormularioCadastro from "./components/FormularioCadastro/FormularioCadastro";
 import { Container, Typography } from "@material-ui/core";
 import { validateCpf, validatePassword, validateName } from "./models/register";
+import RegisterValidation from "./context/RegistrationValidation";
 
 function App() {
   return (
@@ -9,14 +10,15 @@ function App() {
       <Typography variant="h3" component="h1" align="center">
         Formulário de cadastro
       </Typography>
-      <FormularioCadastro
-        submit={onSubmitForm}
-        validations={{
+      <RegisterValidation.Provider
+        value={{
           cpf: validateCpf,
           password: validatePassword,
           name: validateName,
         }}
-      />
+      >
+        <FormularioCadastro submit={onSubmitForm} />
+      </RegisterValidation.Provider>
     </Container>
   );
 }
